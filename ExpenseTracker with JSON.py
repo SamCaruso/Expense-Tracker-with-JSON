@@ -43,7 +43,7 @@ def add_item(type, type_dict):
                     try:
                         amount = float(amount)
                         if amount <= 0:
-                            print("Invalid amount if it's <= 0")
+                            print("The amount has to be greater than 0")
                             continue
                         else:
                             print(
@@ -122,7 +122,7 @@ def edit_amount(dictionary, choose):
             try:
                 new_am = float(new_am)
                 if new_am <= 0:
-                    print("Invalid amount if it's <= 0")
+                    print("The amount has to be greater than 0")
                     continue
                 else:
                     print(
