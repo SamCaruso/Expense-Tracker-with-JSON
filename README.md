@@ -5,5 +5,7 @@ An Expense Tracker built in Python that allows the user to enter an initial budg
 # Features
 
 -**Add, Edit, Remove expenses and credits**: chronological order is maintained through the use of OrderedDict
+
 -**Budget Overview**: Breakdown of initial budget, individual expenses and their total, individual credits and their total, remaining budget
+
 -**Data Persistence**: Option to save the data to a json file
