@@ -4,7 +4,7 @@ An Expense Tracker built in Python that allows the user to enter an initial budg
 
 # Features
 
--**Add, Edit, Remove expenses and credits**: chronological order is maintained through the use of OrderedDict
+-**Add, Edit, Remove expenses and credits**: chronological order is maintained
 
 -**Budget Overview**: breakdown of initial budget, individual expenses and their total, individual credits and their total, remaining budget
 
