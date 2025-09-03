@@ -1,17 +1,15 @@
-from collections import OrderedDict
+""" I consciously decided not to ask the user if they want to continue adding/removing/editing a new expense/credit after they've done it once 
+as it would not be time or logic efficient: it would require the same extra step required by being sent back to the main menu and having to reselect 
+the same option(=no saved time); also, it would require a lot more code in order to prompt an input and to validate it.
+
+Since this is an EXPENSE TRACKER and not a BANK ACCOUNT and it only abstractly registers transactions without dealing with actual money,
+expenses larger than the current budget are allowed and so are negative amounts for the total budget """
+
 import json
 import sys
 
 BACK = "b"
 EXIT = "*"
-
-# I consciously decided not to ask the user if they want to continue adding/removing/editing a new expense/credit
-# after they've done it once as it would not be time or logic efficient:
-# it would require the same extra step required by being sent back to the main menu and having to reselect the same option(=no saved time);
-# also, it would require a lot more code in order to prompt an input and to validate it
-
-# Since this is an EXPENSE TRACKER and not a BANK ACCOUNT and it only abstractly registers transactions without dealing with actual money,
-# expenses larger than the current budget are allowed and so are negative amounts for the total budget
 
 
 def get_budget():
@@ -99,17 +97,11 @@ def edit_description(dictionary, choose):
     if new_desc == EXIT:
         return False
     else:
-        new_entry = OrderedDict()
-
-        for desc, amount in dictionary.items():
-            if desc == choose:
-                new_entry[new_desc] = dictionary[choose]
-            else:
-                new_entry[desc] = amount
+        new_dict = {(new_desc if key == choose else key): value for key, value in dictionary.items()}
         dictionary.clear()
-        dictionary.update(new_entry)
+        dictionary.update(new_dict)
         print(f"'{choose}' updated to '{new_desc}'")
-        return dictionary
+        return True
 
 
 def edit_amount(dictionary, choose):
@@ -128,7 +120,7 @@ def edit_amount(dictionary, choose):
                     print(
                         f"{choose} updated from {dictionary[choose]} to {new_am}")
                     dictionary[choose] = new_am
-                return dictionary
+                return True
             except ValueError:
                 print("Invalid entry")
 
@@ -210,7 +202,7 @@ def save_budget_details(init_budget, expenses, credit, saved_expenses_json):
 
 def to_do(expenses, credit, init_budget, budget, saved_expenses_json):
     print("\nWhat would you like to do?")
-    print("1. Add an expense")
+    print("1. Add expense")
     print("2. Edit expense")
     print("3. Remove expense")
     print("4. Add credit")
@@ -219,7 +211,7 @@ def to_do(expenses, credit, init_budget, budget, saved_expenses_json):
     print("7. Show budget details")
     print("8. Exit and save")
     print("9. Exit without saving")
-    choice = input("Enter choice (1/2/3/4/5/6/7/8): ").strip()
+    choice = input("Enter choice (1/2/3/4/5/6/7/8/9): ").strip()
     if choice == "1":
         add_item("expense", expenses)
     elif choice == "2":
@@ -259,7 +251,7 @@ def to_do(expenses, credit, init_budget, budget, saved_expenses_json):
             else:
                 print("Invalid entry")
     else:
-        print("Invalid entry. Please enter (1/2/3/4/5/6/7/8)")
+        print("Invalid entry. Please enter (1/2/3/4/5/6/7/8/9)")
 
     return init_budget - sum(expenses.values()) + sum(credit.values())
 
@@ -280,3 +272,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+    
+
